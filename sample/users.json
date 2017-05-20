@@ -1,0 +1,20 @@
+[
+  {
+    "name": "mahesh",
+    "username": "mahesh",
+    "password": "123456",
+    "profession": "teacher"
+  },
+  {
+    "name": "suresh",
+    "username": "suresh",
+    "password": "123456",
+    "profession": "librarian"
+  },
+  {
+    "name": "ramesh",
+    "username": "ramesh",
+    "password": "123456",
+    "profession": "clerk"
+  }
+]
