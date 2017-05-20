@@ -2,8 +2,6 @@
 /*jslint node: true */
 'use strict';
 
-console.log(process.env.PORT);
-
 const config   = require('config');
 const express  = require('express');
 const events   = require('events');
