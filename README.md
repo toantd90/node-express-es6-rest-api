@@ -1,1 +1,1 @@
-# node-express6-es6-rest-api
+# node-express-es6-rest-api

@@ -1,7 +1,8 @@
 /*jshint esversion: 6 */
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt-nodejs';
+
 const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt-nodejs');
 
 let userSchema = new Schema({
   name: {
@@ -38,12 +39,12 @@ let userSchema = new Schema({
 });
 
 userSchema.methods.generateHash = (password) => {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
 // checking if password is valid
 userSchema.methods.validPassword = (password) => {
-    return bcrypt.compareSync(password, this.password);
+  return bcrypt.compareSync(password, this.password);
 };
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);

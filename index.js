@@ -2,31 +2,32 @@
 /*jslint node: true */
 'use strict';
 
-const config   = require('config');
-const express  = require('express');
-const events   = require('events');
-const fs       = require('fs');
-const http     = require('http');
+import config from 'config';
+import express from 'express';
+import events from 'events';
+import fs from 'fs';
+import http from 'http';
+import {initializeDb} from './database';
 
-let app        = express();
-let pubSub     = new events.EventEmitter();
+let app = express();
+let pubSub = new events.EventEmitter();
 
 app.get('/listUsers', (req, res) => {
-  fs.readFile( __dirname + '/' + 'users.json', 'utf8', (err, data) => {
+  fs.readFile(__dirname + '/' + 'users.json', 'utf8', (err, data) => {
     res.statusCode = 200;
     res.end(data);
   });
 });
 
-const port    = 3000;
-const server  = http.createServer(app, (req, res) => {
+const port = 3000;
+const server = http.createServer(app, (req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   res.end('Hello World\n');
 });
 
-server.listen(port,  () => {
+server.listen(port, () => {
   console.log(`Server running at port ${port}`);
 });
 
-require('./database').init(pubSub);
+initializeDb(pubSub);
