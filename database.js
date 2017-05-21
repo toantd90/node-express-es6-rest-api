@@ -1,4 +1,3 @@
-/*jshint esversion: 6 */
 import config from 'config';
 import mongoose from 'mongoose';
 import fs from 'fs';
