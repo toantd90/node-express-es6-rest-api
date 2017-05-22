@@ -49,7 +49,7 @@ userSchema.methods.generateHash = (password => bcrypt.hashSync(password, bcrypt.
 // checking if password is valid
 userSchema.methods.validPassword = (passwor => bcrypt.compareSync(password, this.password));
 
-userSchema.methods.convertObject = ((user) => ({
+userSchema.statics.convertObject = (user => ({
   userid: user._id,
   name: user.name,
   username: user.username,

@@ -11,7 +11,11 @@ export default() => resource({
   load(req, id, callback) {
     let user = {};
     User.findById(id, (err, user) => {
-      callback(err, user);
+      if (err) {
+        callback(err);
+        return console.error(err);
+      }
+      callback(err, User.convertObject(user));
     });
   },
 
@@ -24,15 +28,6 @@ export default() => resource({
         res.json({message: err.code});
         return console.error(err);
       }
-      // let listUsers = users.map(user => ({
-      //   userid: user._id,
-      //   name: user.name,
-      //   username: user.username,
-      //   profession: user.profession,
-      //   createddate: user.createddate,
-      //   modifieddate: user.modifieddate,
-      //   status: user.status
-      // }));
 
       let listUsers = users.map(user => User.convertObject(user));
       res.json(listUsers);
@@ -60,7 +55,6 @@ export default() => resource({
   read({
     user
   }, res) {
-    console.log(user);
     res.json(user);
   },
 
@@ -81,7 +75,7 @@ export default() => resource({
   delete({
     user
   }, res) {
-    facets.splice(users.indexOf(user), 1);
+    users.splice(users.indexOf(user), 1);
     res.sendStatus(204);
   }
 });
