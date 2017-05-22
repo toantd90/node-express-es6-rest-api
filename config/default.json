@@ -1,1 +1,16 @@
-{"dbConfig":{"host":"127.0.0.1","port":"27017","dbName":"myDB","options":{"db":{"native_parser":true},"server":{"poolSize":5}},"initSampleData":false}}
+{
+  "dbConfig": {
+    "host": "127.0.0.1",
+    "port": "27017",
+    "dbName": "myDB",
+    "options": {
+      "db": {
+        "native_parser": true
+      },
+      "server": {
+        "poolSize": 5
+      }
+    },
+    "initSampleData": true
+  }
+}

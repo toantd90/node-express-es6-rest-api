@@ -11,9 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.2",
     "config": "^1.26.1",
     "express": "^4.15.2",
-    "mongoose": "^4.9.8"
+    "mongoose": "^4.9.8",
+    "resource-router-middleware": "^0.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
