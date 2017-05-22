@@ -9,40 +9,58 @@ export default() => resource({
    *  Errors terminate the request, success sets `req[id] = data`.
    */
   load(req, id, callback) {
-    let user = users.find(user => user.id === id),
-      err = users
-        ? null
-        : 'Not found';
-    callback(err, user);
+    let user = {};
+    User.findById(id, (err, user) => {
+      callback(err, user);
+    });
   },
 
   /** GET / - List all entities */
   index({
     params
   }, res) {
-    User.find({}, function(err, users) {
+    User.find({}, (err, users) => {
       if (err) {
         res.json({message: err.code});
         return console.error(err);
       }
-      res.json(users);
-    });
+      // let listUsers = users.map(user => ({
+      //   userid: user._id,
+      //   name: user.name,
+      //   username: user.username,
+      //   profession: user.profession,
+      //   createddate: user.createddate,
+      //   modifieddate: user.modifieddate,
+      //   status: user.status
+      // }));
 
+      let listUsers = users.map(user => User.convertObject(user));
+      res.json(listUsers);
+    });
   },
 
   /** POST / - Create a new entity */
   create({
     body
   }, res) {
-    body.id = users.length.toString(36);
-    users.push(body);
-    res.json(body);
+    let saveUser = new User({name: body.name, username: body.username, birth: body.birth, address: body.address, profession: body.profession});
+
+    saveUser.password = saveUser.generateHash(body.password);
+    saveUser.modifieddate = saveUser.createddate = new Date();
+    saveUser.save((err, savedUser) => {
+      if (err) {
+        res.json({message: err.code});
+        return console.error(err);
+      }
+      res.json(savedUser);
+    });
   },
 
   /** GET /:id - Return a given entity */
   read({
     user
   }, res) {
+    console.log(user);
     res.json(user);
   },
 

@@ -34,16 +34,29 @@ let userSchema = new Schema({
   status: {
     type: Boolean,
     default: true
+  },
+  createddate: {
+    type: Date
+  },
+  modifieddate: {
+    type: Date
   }
 });
 
-userSchema.methods.generateHash = (password) => {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
+// generate password hash
+userSchema.methods.generateHash = (password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null));
 
 // checking if password is valid
-userSchema.methods.validPassword = (password) => {
-  return bcrypt.compareSync(password, this.password);
-};
+userSchema.methods.validPassword = (passwor => bcrypt.compareSync(password, this.password));
+
+userSchema.methods.convertObject = ((user) => ({
+  userid: user._id,
+  name: user.name,
+  username: user.username,
+  profession: user.profession,
+  createddate: user.createddate,
+  modifieddate: user.modifieddate,
+  status: user.status
+}));
 
 export default mongoose.model('User', userSchema);

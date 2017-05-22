@@ -1,9 +1,9 @@
 import config from 'config';
 import mongoose from 'mongoose';
 import fs from 'fs';
+import User from './models/user';
 
 const mongoDBConnStr = 'mongodb://';
-const User = require('./models/user').default;
 
 let publisher = null;
 let dbConfig = config.get('dbConfig');
@@ -22,16 +22,10 @@ let initSampleData = () => {
   users.forEach(user => {
     let password = user.password;
 
-    let saveUser = new User({
-      name: user.name,
-      username: user.username,
-      password: user.password,
-      birth: user.birth,
-      address: user.address,
-      profession: user.profession
-    });
+    let saveUser = new User({name: user.name, username: user.username, birth: user.birth, address: user.address, profession: user.profession});
 
     saveUser.password = saveUser.generateHash(password);
+    saveUser.modifieddate = saveUser.createddate = new Date();
     saveUser.save((err, savedUser) => {
       if (err) {
         return console.error(err);
@@ -66,7 +60,7 @@ export function initializeDb(pubSub) {
             if (err) {
               return console.error(err);
             }
-            console.log('Save file successfull');
+            console.log('Save configuration file successful');
           });
         });
       }
