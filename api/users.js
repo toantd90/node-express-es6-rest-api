@@ -63,19 +63,30 @@ export default() => resource({
     user,
     body
   }, res) {
-    for (let key in body) {
-      if (key !== 'id') {
-        user[key] = body[key];
+    body.modifieddate = new Date();
+    User.update({
+      _id: user.userid
+    }, body, (err, updatedUser) => {
+      if (err) {
+        res.json({message: err.code});
+        return console.error(err);
       }
-    }
-    res.sendStatus(204);
+      res.sendStatus(204);
+    });
   },
 
   /** DELETE /:id - Delete a given entity */
   delete({
     user
   }, res) {
-    users.splice(users.indexOf(user), 1);
-    res.sendStatus(204);
+    User.remove({
+      _id: user.userid
+    }, (err) => {
+      if (err) {
+        res.json({message: err.code});
+        return console.error(err);
+      }
+      res.sendStatus(204);
+    });
   }
 });
