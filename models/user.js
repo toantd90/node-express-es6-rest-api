@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt-nodejs';
+import mongoose from 'mongoose'
+import bcrypt from 'bcrypt-nodejs'
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 let userSchema = new Schema({
   name: {
@@ -41,15 +41,15 @@ let userSchema = new Schema({
   modifieddate: {
     type: Date
   }
-});
+})
 
 // generate password hash
-userSchema.methods.generateHash = (password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null));
+userSchema.methods.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
 
 // checking if password is valid
-userSchema.methods.validPassword = (passwor => bcrypt.compareSync(password, this.password));
+userSchema.methods.validPassword = password => bcrypt.compareSync(password, this.password)
 
-userSchema.statics.convertObject = (user => ({
+userSchema.statics.convertObject = user => ({
   userid: user._id,
   name: user.name,
   username: user.username,
@@ -57,6 +57,6 @@ userSchema.statics.convertObject = (user => ({
   createddate: user.createddate,
   modifieddate: user.modifieddate,
   status: user.status
-}));
+})
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema)

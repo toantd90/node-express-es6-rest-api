@@ -1,17 +1,16 @@
-import {Router} from 'express';
-import users from './users';
+import {Router} from 'express'
+import users from './users'
 
-export default () => {
+export default() => {
   // ROUTES FOR API
   // =============================================================================
-  let api = Router();
+  let api = Router()
 
   // mount the facets resource
-	api.use('/users', users());
+  api.use('/users', users())
 
   // perhaps expose some API metadata at the root
-	api.get('/', (req, res) => {
-	});
+  api.get('/', (req, res) => {})
 
-	return api;
+  return api
 }
