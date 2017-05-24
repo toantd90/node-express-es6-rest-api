@@ -37,16 +37,17 @@ export default() => resource({
   create ({
     body
   }, res) {
-    let saveUser = new User({name: body.name, username: body.username, birth: body.birth, address: body.address, profession: body.profession})
+    let {name, username, password, birth, address, profession} = body
+    let saveUser = new User({name, username, birth, address, profession})
 
-    saveUser.password = saveUser.generateHash(body.password)
+    saveUser.password = saveUser.generateHash(password)
     saveUser.modifieddate = saveUser.createddate = new Date()
     saveUser.save((err, savedUser) => {
       if (err) {
         res.json({message: err.code})
         return console.error(err)
       }
-      res.json(savedUser)
+      res.json(User.convertObject(savedUser))
     })
   },
 
