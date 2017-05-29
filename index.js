@@ -13,9 +13,9 @@ app.use(bodyParser.json()) // for parsing application/json
 
 const port = process.env.PORT || 3000
 
-// app.get('/', function(req,res) {
-//   res.json({message: 'horray! welcome to our api!'})
-// })
+app.get('/', function(req,res) {
+  res.json({message: 'horray! welcome to our api!'})
+})
 //
 // const server = http.createServer(app, (req, res) => {
 //   res.statusCode = 200;
