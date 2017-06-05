@@ -8,7 +8,7 @@
     "start": "babel-node index.js --presets es2015,stage-2"
   },
   "engines": {
-    "node": "6.9.1"
+    "node": ">=6.9.1"
   },
   "author": "Toan Tran <toantdfu@gmail.com>",
   "license": "ISC",
@@ -16,7 +16,10 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "config": "^1.26.1",
+    "cors": "^2.8.3",
+    "debug": "^2.6.8",
     "express": "^4.15.2",
+    "jsonwebtoken": "^7.4.1",
     "mongoose": "^4.9.8",
     "resource-router-middleware": "^0.6.0"
   },

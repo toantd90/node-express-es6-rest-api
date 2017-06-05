@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser'
 import express from 'express'
+import cors from 'cors'
 import { initializeDb } from './database'
 import api from './api'
 
@@ -11,7 +12,8 @@ let app = express()
 app.use(bodyParser.urlencoded({extended: true})) // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.json()) // for parsing application/json
 
-const port = process.env.PORT || 3000
+// enable CORS - Cross Origin Resource Sharing
+app.use(cors())
 
 // app.get('/', function (req, res) {
 //   res.json({message: 'horray! welcome to our api!'})
@@ -32,9 +34,11 @@ const port = process.env.PORT || 3000
 // all of our routes will be prefixed with /api
 app.use('/api', api())
 
+const port = process.env.PORT || 3000
+
 // START THE SERVER
 app.listen(port, () => {
-  console.log(`Server running at port ${port}`)
+  console.info(`Server running at port ${port}`)
 })
 
 initializeDb()
