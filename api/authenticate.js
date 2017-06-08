@@ -16,24 +16,20 @@ let authenticate = () => {
         throw err
       }
       if (!user) {
-        console.error(`Authentication failed. User '${req.body.username}' not found.`);
+        console.error(`Authentication failed. User '${req.body.username}' not found.`)
         res.json({success: false, message: 'Authentication failed. User not found.'})
       } else {
         // Check if password matches
-        if (user.password !== req.body.password) {
-          console.error(`Authentication failed. Wroong password for user '${req.body.username}'`);
+        if (!user.validPassword(req.body.password)) {
+          console.error(`Authentication failed. Wroong password for user '${req.body.username}'`)
           res.json({success: false, message: 'Authentication failed. Wrong password.'})
         } else {
           // If user is founded and password is right
           // create a token
-          let token = jwt.sign(user, app.get('superSecret'), { expiresInMinutes: 720 })
+          let token = jwt.sign(user, app.get('superSecret'), {expiresInMinutes: 720})
 
           // return the information including token as JSON
-          res.json({
-            success: true,
-            message: 'Enjoy your token',
-            token: token
-          })
+          res.json({success: true, message: 'Enjoy your token', token: token})
         }
       }
     })
