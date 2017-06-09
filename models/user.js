@@ -47,7 +47,9 @@ let userSchema = new Schema({
 userSchema.methods.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
 
 // checking if password is valid
-userSchema.methods.validPassword = password => bcrypt.compareSync(password, this.password)
+userSchema.methods.validPassword = function (password) {
+  return bcrypt.compareSync(password, this.password)
+}
 
 userSchema.statics.convertObject = user => ({
   userid: user._id,

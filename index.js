@@ -6,7 +6,6 @@ import api from './api'
 
 let app = express()
 // let pubSub = new EventEmitter()
-
 // configure app to user bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({extended: true})) // for parsing application/x-www-form-urlencoded

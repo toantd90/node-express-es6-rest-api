@@ -1,5 +1,6 @@
 import {Router} from 'express'
 import authenticate from './authenticate'
+import users from './users'
 
 export default() => {
   // ROUTES FOR API
@@ -7,7 +8,7 @@ export default() => {
   let api = Router()
 
   // mount the facets resource
-  // api.use('/users', users())
+  api.use('/users', users())
   api.use('/authenticate', authenticate())
 
   // perhaps expose some API metadata at the root

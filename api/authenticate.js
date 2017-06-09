@@ -1,9 +1,9 @@
 import User from '../models/user'
-import express, {Router} from 'express'
-import jwt from 'jsonwebtoken'
+import {Router} from 'express'
+import jwt from 'jsonwebtoken' // used to create, sign and verify tokens
+import {secret} from '../config' // get our config
 
 let authenticate = () => {
-  const app = express()
   const api = Router()
 
   // Route to authenticate a user
@@ -26,7 +26,7 @@ let authenticate = () => {
         } else {
           // If user is founded and password is right
           // create a token
-          let token = jwt.sign(user, app.get('superSecret'), {expiresInMinutes: 720})
+          let token = jwt.sign(user, secret, {expiresIn: 720})
 
           // return the information including token as JSON
           res.json({success: true, message: 'Enjoy your token', token: token})
