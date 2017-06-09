@@ -1,6 +1,6 @@
 import User from '../models/user'
 import {Router} from 'express'
-import jwt from 'jsonwebtoken' // used to create, sign and verify tokens
+import jwt from 'jsonwebtoken' // used to create, sign tokens
 import {secret} from '../config' // get our config
 
 let authenticate = () => {
